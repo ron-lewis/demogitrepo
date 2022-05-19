@@ -30,7 +30,7 @@ This is my *introduction*.
 
 ## Hypothesis
 
-This is my **hypothesis**.
+This is my **hypothesis**. I've added to it just to have some change in this file for git'ing puposes.
 
 ### Main hypothesis
 
