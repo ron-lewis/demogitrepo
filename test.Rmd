@@ -1,0 +1,164 @@
+---
+title: "My first analysis: A report"
+author: Ron Lewis #quotes used when ambiguity with syntax such as commas or colons 
+date: "Friday, March 25, 2022"
+output: 
+  pdf_document:
+    keep_tex: true #generates tex file for review
+    toc: true 
+header-includes:
+  - \usepackage{booktabs}
+bibliography: refs.bib
+biblio-style: apalike
+---
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(message = FALSE, warning = FALSE , echo = FALSE)
+
+```
+
+```{r libraries}
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+
+```
+
+# Introduction
+
+This is my *introduction*.
+
+## Hypothesis
+
+This is my **hypothesis**.
+
+### Main hypothesis
+
+This ***main hypothesis*** is always \underline{hardest} to establish.
+
+```{r my_figure, fig.cap = 'Caption is "here". For this smashing scatterplot.' , out.width = "0.5\\textwidth", fig.align = "center"}
+data_df <- tibble(x = rnorm(10),
+                  y = rnorm(10))
+
+ggplot(data_df, 
+       aes(x = x, y = y)) + geom_point() + theme_classic() 
+```
+ 
+```{r}
+ 
+# data_summary <- data_df %>%
+#    summarise_all(list(mean = mean, sd = sd)) 
+#   rename_all(~str_replace_all(., '_', ''))
+
+ data_summary <- select(diamonds, color, clarity, depth, price) %>% slice(1:10)
+
+# kable(data_summary,
+#       format = 'latex',
+#       digits = 2,
+#       booktabs = TRUE) %>%
+#   kable_styling(position = "center")
+
+make_table <- function(data){
+  kable(data,
+      format = 'latex',
+      digits = 2,
+      booktabs = TRUE) %>%
+  kable_styling(latex_options = "HOLD_position", position = 'center')
+}
+
+make_table(data_summary)
+```
+
+```{r, comment = ''}
+M <- lm(y ~ x, data = data_df)
+S <- summary(M)
+
+make_table(S$coefficients)
+# 
+# kable(S$coeffecients,
+#       format = "latex",
+#       digits = 2,
+#       booktabs = TRUE) 
+
+# %>%
+  # kable_styling(position = "center")
+```
+
+From this analysis, $$R^2 = `r round(S$r.squared, 2)`$$
+
+Hereis a [link](http://www.vocm.com).
+
+As was shown in @andrews2014reconciling where that fellow did this. Whereas @schneider2009quantitative shows this other thing.
+
+```python
+X = []
+for x in range(x):
+  X.append(x)
+
+```
+
+```{r, eval=FALSE, echo=TRUE}
+M <- brm(y ~ x, data = data_df)
+```
+
+# A list of things
+
+* Blue
+* Red
+* Green
+* Rose
+
+## More colours
+
+* Blue
+  * Light blue
+  * Navy blue
+  * Baby blue
+* Green
+  * Forest green
+  * Emerald
+  * Kelly green
+  * Light green
+
+# Numbered list
+
+1. Blue
+1. Red
+1. Green
+1. Rose
+1. Orange
+1. Purple
+
+## Number list two
+
+1. Blue
+    1. Red
+    1. Mauve
+    1. Peackock
+3. Green
+    1. Rose
+    1. Orange
+    17. Purple
+
+# The statistical model
+
+Our model is
+$$
+y_i \sim \alpha + \beta x_i + \epsilon_i \longrightarrow \Phi_{\alpha_i}
+$$
+
+We use \LaTeX
+
+# A definition list
+
+height
+: The person's height in cm
+
+weight
+: The person's weight in kg
+
+age
+: The person's age in years
+
+
+# Bibliography
