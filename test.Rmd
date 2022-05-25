@@ -26,6 +26,13 @@ library(kableExtra)
 
 Just mods to track with commits 11:54
 
+data_df <- tibble(y = rnorm(100),
+                  x = runif(100))
+
+ggplot(data_df, aex(x = x, y = y)) + geom_point()
+
+ggplot(data_df, aex(x = x)) + geom_point
+
 # Introduction
 
 This is my *introduction*.
